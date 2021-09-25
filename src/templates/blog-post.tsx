@@ -6,23 +6,12 @@ import { Layout } from "../components/layout"
 import { FadeLink } from "../components/link"
 import { SEO } from "../components/seo"
 import { Query, SitePageContext } from "../graphql-types"
-import { rhythm, styledScale } from "../utils/typography"
+import { Box, Stack, Text, Heading, Divider } from "@chakra-ui/react"
 
 interface Props extends PageRendererProps {
   pageContext: SitePageContext
   data: Query
 }
-
-const Date = styled.p`
-  display: block;
-  ${styledScale(-1 / 5)};
-  margin-bottom: ${rhythm(1)};
-  margin-top: ${rhythm(-1)};
-`
-
-const Divider = styled.hr`
-  margin-bottom: ${rhythm(1)};
-`
 
 const PostNavigator = styled.ul`
   display: flex;
@@ -47,27 +36,35 @@ const BlogPostTemplate = (props: Props) => {
         title={frontmatter.title!}
         description={frontmatter.description || excerpt}
       />
-      <h1>{post.frontmatter!.title}</h1>
-      <Date>{frontmatter.date}</Date>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
-      <Divider />
-      <Bio />
-      <PostNavigator>
-        <li>
-          {previous && (
-            <FadeLink to={previous.fields!.slug!} rel="prev">
-              ← {previous.frontmatter!.title}
-            </FadeLink>
-          )}
-        </li>
-        <li>
-          {next && (
-            <FadeLink to={next.fields!.slug!} rel="next">
-              {next.frontmatter!.title} →
-            </FadeLink>
-          )}
-        </li>
-      </PostNavigator>
+      <Stack spacing={12}>
+        <Box mt={12}>
+          <Stack spacing={2}>
+            <Heading as={"h2"} fontSize={"2xl"}>
+              {post.frontmatter!.title}
+            </Heading>
+            <Text fontSize={"sm"}>{frontmatter.date}</Text>
+          </Stack>
+        </Box>
+        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <Divider />
+        <Bio />
+        <PostNavigator>
+          <li>
+            {previous && (
+              <FadeLink to={previous.fields!.slug!} rel="prev">
+                ← {previous.frontmatter!.title}
+              </FadeLink>
+            )}
+          </li>
+          <li>
+            {next && (
+              <FadeLink to={next.fields!.slug!} rel="next">
+                {next.frontmatter!.title} →
+              </FadeLink>
+            )}
+          </li>
+        </PostNavigator>
+      </Stack>
     </Layout>
   )
 }

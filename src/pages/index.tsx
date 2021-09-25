@@ -1,12 +1,10 @@
 import { graphql, PageRendererProps, useStaticQuery } from "gatsby"
 import React from "react"
-import styled from "styled-components"
 import { Bio } from "../components/bio"
 import { Layout } from "../components/layout"
 import { FadeLink } from "../components/link"
 import { SEO } from "../components/seo"
 import { MarkdownRemark } from "../graphql-types"
-import { rhythm } from "../utils/typography"
 import { Heading, Stack } from "@chakra-ui/react"
 import { Card } from "../components/card"
 
@@ -49,7 +47,7 @@ const BlogIndex = (props: Props) => {
       />
       <Stack spacing={12}>
         <Bio />
-        <Stack spacing={8}>
+        <Stack spacing={4}>
           <Heading as={"h4"} size={"md"}>
             Updates
           </Heading>
