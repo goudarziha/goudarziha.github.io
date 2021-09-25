@@ -1,25 +1,23 @@
-import { graphql, PageRendererProps } from "gatsby"
+import { graphql, PageRendererProps, Link as GatsbyLink } from "gatsby"
 import React from "react"
-import styled from "styled-components"
 import { Bio } from "../components/bio"
 import { Layout } from "../components/layout"
-import { FadeLink } from "../components/link"
 import { SEO } from "../components/seo"
 import { Query, SitePageContext } from "../graphql-types"
-import { Box, Stack, Text, Heading, Divider } from "@chakra-ui/react"
+import {
+  Box,
+  Flex,
+  Link,
+  Stack,
+  Text,
+  Heading,
+  Divider,
+} from "@chakra-ui/react"
 
 interface Props extends PageRendererProps {
   pageContext: SitePageContext
   data: Query
 }
-
-const PostNavigator = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  list-style: none;
-  padding: 0;
-`
 
 const BlogPostTemplate = (props: Props) => {
   const data = props.data!
@@ -46,24 +44,21 @@ const BlogPostTemplate = (props: Props) => {
           </Stack>
         </Box>
         <div dangerouslySetInnerHTML={{ __html: html }} />
+
+        <Flex direction={"row"} justify={"space-between"}>
+          {previous && (
+            <Link as={GatsbyLink} to={previous.fields!.slug!} rel="prev">
+              ← {previous.frontmatter!.title}
+            </Link>
+          )}
+          {next && (
+            <Link as={GatsbyLink} to={next.fields!.slug!} rel="next">
+              {next.frontmatter!.title} →
+            </Link>
+          )}
+        </Flex>
         <Divider />
         <Bio />
-        <PostNavigator>
-          <li>
-            {previous && (
-              <FadeLink to={previous.fields!.slug!} rel="prev">
-                ← {previous.frontmatter!.title}
-              </FadeLink>
-            )}
-          </li>
-          <li>
-            {next && (
-              <FadeLink to={next.fields!.slug!} rel="next">
-                {next.frontmatter!.title} →
-              </FadeLink>
-            )}
-          </li>
-        </PostNavigator>
       </Stack>
     </Layout>
   )

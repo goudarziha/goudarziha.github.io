@@ -24,8 +24,12 @@ export const Nav = () => {
             Projects
           </Link>
         </ListItem>
+        <ListItem>
+          <Link as={GatsbyLink} to={"/books"}>
+            Books
+          </Link>
+        </ListItem>
         <ListItem>Blog</ListItem>
-        <ListItem>Books</ListItem>
       </Stack>
     </UnorderedList>
   )
