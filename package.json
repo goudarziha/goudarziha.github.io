@@ -90,6 +90,6 @@
     "tsc": "tsc --noEmit",
     "lint": "tslint --project .",
     "gql-codegen": "graphql-codegen --config codegen.yml",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public -b master"
+    "deploy": "echo 'agoudarzi.com' > ./build/CNAME && gatsby build --prefix-paths && gh-pages -d public -b master"
   }
 }
